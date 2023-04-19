@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="search.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title> search page</title>
+</head>
+<body>
+<div class="container">
+  <div class="navbar">
+    <img src="logo.PNG" class="logo">
+    <nav>
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">profile</a></li>
+        <li><a href="">about</a></li>
+      </ul>
+    </nav>
+   
+  </div>
+  <div class="row">
+    <div class="col">
+     <h1>Who you looking for?</h1>
+     <div class="search-box">
+      <form method="get" target="after-search.html">
+      <input type="text" placeholder="Search" name="search">
+      <button type="submit" class="click" name="submit">Search</button>
+    </form>
+    </div>
+    
+    </div>
+    <div class="col">
+      <div class="card card1">
+        <div class="small-box">
+        <h5>max</h5>
+        <p> statistics</p>
+      </div>
+      </div>
+      <div class="card card2">
+        <div class="small-box">
+        <h5>daved</h5>
+        <p> history</p>
+        </div>
+      </div>
+      <div class="card card3">
+        <div class="small-box">
+        <h5>savana</h5>
+        <p> math</p>
+        </div>
+      </div>
+      <div class="card card4">
+        <div class="small-box">
+        <h5>june</h5>
+        <p> arts</p>
+       </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+<?php
+ Connect to MySQL database
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "mydatabase";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Retrieve search query from GET parameters
+$query = $_GET['search'];
+
+// Build SQL query
+$sql = "SELECT * FROM mytable WHERE column1 LIKE '%$search%' ;
+
+// Execute SQL query
+$result = $conn->query($sql);
+
+// Display search results
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        echo "<p>" . $row["column1"] . " - " . $row["column2"] . "</p>";
+    }
+} else {
+    echo "<p>No results found</p>";
+}
+
+// Close database connection
+$conn->close();
+?>
+
+
+
+
+
